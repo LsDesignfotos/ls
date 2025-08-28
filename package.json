@@ -1,0 +1,13 @@
+{
+  "name": "ls-design-github-protection",
+  "version": "1.0.0",
+  "description": "Sistema de proteção de arquivos para GitHub - LS DESIGN",
+  "main": "rename-for-github.js",
+  "scripts": {
+    "rename-files": "node rename-for-github.js",
+    "backup-original": "node backup-original-structure.js"
+  },
+  "keywords": ["protection", "obfuscation", "github", "security"],
+  "author": "LS DESIGN",
+  "license": "MIT"
+}

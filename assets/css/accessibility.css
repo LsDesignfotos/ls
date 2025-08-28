@@ -1,0 +1,461 @@
+/* ===== MELHORIAS DE ACESSIBILIDADE ===== */
+
+/* Foco visível melhorado */
+*:focus {
+  outline: 2px solid var(--accent-1);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Foco específico para botões */
+.btn:focus,
+button:focus {
+  outline: 3px solid var(--accent-1);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.3);
+}
+
+/* Links com foco melhorado */
+a:focus {
+  outline: 2px solid var(--accent-1);
+  outline-offset: 2px;
+  text-decoration: underline;
+  background: rgba(124, 58, 237, 0.1);
+  border-radius: 3px;
+}
+
+/* Melhorar contraste de texto */
+.hero h1,
+.hero p,
+.section h2,
+.section h3 {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Estados de hover mais acessíveis */
+.btn:hover,
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Melhorar legibilidade de formulários */
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--accent-1);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Estados de erro e sucesso */
+.form-field.error input,
+.form-field.error textarea {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.form-field.valid input,
+.form-field.valid textarea {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+/* Mensagens de erro e sucesso */
+.error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.success-message {
+  color: #10b981;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.error-message::before {
+  content: "⚠️";
+}
+
+.success-message::before {
+  content: "✅";
+}
+
+/* Skip links para navegação por teclado */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--accent-1);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Melhorar navegação por teclado */
+.nav a:focus,
+.nav button:focus {
+  background: rgba(124, 58, 237, 0.2);
+  border-radius: 6px;
+}
+
+/* Indicadores visuais para elementos interativos */
+.btn,
+button,
+a,
+input,
+select,
+textarea {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+input,
+select,
+textarea {
+  cursor: text;
+}
+
+/* Estados desabilitados */
+.btn:disabled,
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Melhorar visibilidade de placeholders */
+::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 1;
+}
+
+/* Tooltips acessíveis */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 12px;
+  position: absolute;
+  z-index: 1001;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.tooltip:hover .tooltip-text,
+.tooltip:focus .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Melhorar acessibilidade de modais */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--bg1);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Melhorar acessibilidade de acordeões/FAQ */
+.faq-item {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--text);
+  padding: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.faq-question:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.faq-question:focus {
+  background: rgba(124, 58, 237, 0.1);
+  outline: 2px solid var(--accent-1);
+  outline-offset: -2px;
+}
+
+.faq-question[aria-expanded="true"] {
+  background: rgba(124, 58, 237, 0.1);
+}
+
+.faq-answer {
+  padding: 0 1.5rem 1.5rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Indicadores de carregamento acessíveis */
+.loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+}
+
+.loading::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(124, 58, 237, 0.3);
+  border-top: 2px solid var(--accent-1);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Melhorar acessibilidade em dispositivos móveis */
+@media (max-width: 768px) {
+  /* Aumentar área de toque */
+  .btn,
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Melhorar espaçamento para toque */
+  .nav a {
+    padding: 1rem;
+    margin: 0.25rem;
+  }
+
+  /* Tooltips em mobile */
+  .tooltip .tooltip-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 280px;
+    margin: 0;
+  }
+}
+
+/* Suporte para modo de alto contraste */
+@media (prefers-contrast: high) {
+  :root {
+    --bg1: #000000;
+    --bg2: #111111;
+    --text: #ffffff;
+    --muted: #cccccc;
+    --accent-1: #ffffff;
+    --accent-2: #ffffff;
+  }
+
+  .btn,
+  button {
+    border: 2px solid currentColor;
+  }
+
+  .card {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Suporte para redução de movimento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .loading::after {
+    animation: none;
+    border: 2px solid var(--accent-1);
+  }
+}
+
+/* Melhorar legibilidade para dislexia */
+@media (prefers-reduced-motion: no-preference) {
+  .dyslexia-friendly {
+    font-family: 'OpenDyslexic', 'Comic Sans MS', cursive;
+    letter-spacing: 0.05em;
+    word-spacing: 0.1em;
+    line-height: 1.8;
+  }
+}
+
+/* Estados de foco para elementos customizados */
+.custom-checkbox:focus,
+.custom-radio:focus {
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+}
+
+/* Melhorar visibilidade de seleção de texto */
+::selection {
+  background: rgba(124, 58, 237, 0.3);
+  color: white;
+}
+
+::-moz-selection {
+  background: rgba(124, 58, 237, 0.3);
+  color: white;
+}
+
+/* Indicadores de progresso acessíveis */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Melhorar acessibilidade de tabelas */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem;
+  text-align: left;
+}
+
+th {
+  background: rgba(124, 58, 237, 0.1);
+  font-weight: 600;
+}
+
+tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Estilos para leitores de tela */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Mostrar conteúdo apenas para leitores de tela quando focado */
+.sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0.5rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  background: var(--accent-1);
+  color: white;
+  border-radius: 4px;
+}

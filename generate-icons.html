@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gerador de Ícones PWA</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #1a1a2e; color: white; }
+        canvas { border: 1px solid #333; margin: 10px; }
+        .icon-preview { display: inline-block; margin: 10px; text-align: center; }
+        button { padding: 10px 20px; background: #7c3aed; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px; }
+        button:hover { background: #6d28d9; }
+    </style>
+</head>
+<body>
+    <h1>🎨 Gerador de Ícones PWA - LS DESIGN</h1>
+    <p>Clique nos botões para gerar e baixar os ícones necessários para o PWA:</p>
+    
+    <div class="icon-preview">
+        <canvas id="icon192" width="192" height="192"></canvas>
+        <br>
+        <button onclick="generateIcon(192)">Gerar Ícone 192x192</button>
+        <button onclick="downloadIcon('icon192', 'icon-192.png')">Baixar 192x192</button>
+    </div>
+    
+    <div class="icon-preview">
+        <canvas id="icon512" width="512" height="512"></canvas>
+        <br>
+        <button onclick="generateIcon(512)">Gerar Ícone 512x512</button>
+        <button onclick="downloadIcon('icon512', 'icon-512.png')">Baixar 512x512</button>
+    </div>
+    
+    <div class="icon-preview">
+        <canvas id="maskable192" width="192" height="192"></canvas>
+        <br>
+        <button onclick="generateMaskableIcon(192)">Gerar Maskable 192x192</button>
+        <button onclick="downloadIcon('maskable192', 'icon-maskable-192.png')">Baixar Maskable 192x192</button>
+    </div>
+    
+    <div class="icon-preview">
+        <canvas id="maskable512" width="512" height="512"></canvas>
+        <br>
+        <button onclick="generateMaskableIcon(512)">Gerar Maskable 512x512</button>
+        <button onclick="downloadIcon('maskable512', 'icon-maskable-512.png')">Baixar Maskable 512x512</button>
+    </div>
+
+    <script>
+        function generateIcon(size) {
+            const canvas = document.getElementById(`icon${size}`);
+            const ctx = canvas.getContext('2d');
+            
+            // Limpar canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Fundo escuro com bordas arredondadas
+            ctx.fillStyle = '#0f0f23';
+            roundRect(ctx, 0, 0, size, size, size * 0.1875);
+            ctx.fill();
+            
+            // Gradiente
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#7c3aed');
+            gradient.addColorStop(1, '#06b6d4');
+            
+            ctx.fillStyle = gradient;
+            ctx.globalAlpha = 0.9;
+            roundRect(ctx, size * 0.0625, size * 0.0625, size * 0.875, size * 0.875, size * 0.125);
+            ctx.fill();
+            
+            // Efeito glassmorphism
+            ctx.fillStyle = 'rgba(255,255,255,0.1)';
+            roundRect(ctx, size * 0.0625, size * 0.0625, size * 0.875, size * 0.875, size * 0.125);
+            ctx.fill();
+            
+            ctx.globalAlpha = 1;
+            
+            // Ícone de câmera
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const radius1 = size * 0.25;
+            const radius2 = size * 0.15625;
+            const radius3 = size * 0.0625;
+            
+            // Círculo externo
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = size * 0.0625;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius1, 0, 2 * Math.PI);
+            ctx.stroke();
+            
+            // Círculo médio
+            ctx.lineWidth = size * 0.046875;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius2, 0, 2 * Math.PI);
+            ctx.stroke();
+            
+            // Círculo central
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius3, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Flash
+            ctx.beginPath();
+            ctx.arc(centerX + size * 0.1875, centerY - size * 0.1875, size * 0.046875, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Reflexo da lente
+            ctx.fillStyle = 'rgba(255,255,255,0.6)';
+            ctx.save();
+            ctx.translate(centerX - size * 0.09375, centerY - size * 0.09375);
+            ctx.rotate(-Math.PI / 4);
+            ctx.beginPath();
+            ctx.ellipse(0, 0, size * 0.0625, size * 0.03125, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.restore();
+        }
+        
+        function generateMaskableIcon(size) {
+            const canvas = document.getElementById(`maskable${size}`);
+            const ctx = canvas.getContext('2d');
+            
+            // Limpar canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Fundo completo para maskable (sem bordas arredondadas)
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#7c3aed');
+            gradient.addColorStop(1, '#06b6d4');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Efeito glassmorphism
+            ctx.fillStyle = 'rgba(255,255,255,0.1)';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Ícone de câmera (menor para maskable)
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const radius1 = size * 0.2;
+            const radius2 = size * 0.125;
+            const radius3 = size * 0.05;
+            
+            // Círculo externo
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = size * 0.05;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius1, 0, 2 * Math.PI);
+            ctx.stroke();
+            
+            // Círculo médio
+            ctx.lineWidth = size * 0.0375;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius2, 0, 2 * Math.PI);
+            ctx.stroke();
+            
+            // Círculo central
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius3, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Flash
+            ctx.beginPath();
+            ctx.arc(centerX + size * 0.15, centerY - size * 0.15, size * 0.0375, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Reflexo da lente
+            ctx.fillStyle = 'rgba(255,255,255,0.6)';
+            ctx.save();
+            ctx.translate(centerX - size * 0.075, centerY - size * 0.075);
+            ctx.rotate(-Math.PI / 4);
+            ctx.beginPath();
+            ctx.ellipse(0, 0, size * 0.05, size * 0.025, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.restore();
+        }
+        
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+        
+        function downloadIcon(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // Gerar todos os ícones automaticamente
+        window.onload = function() {
+            generateIcon(192);
+            generateIcon(512);
+            generateMaskableIcon(192);
+            generateMaskableIcon(512);
+        }
+    </script>
+</body>
+</html>
